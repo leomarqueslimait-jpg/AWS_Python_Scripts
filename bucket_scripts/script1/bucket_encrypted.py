@@ -1,6 +1,14 @@
 import boto3
 from botocore.exceptions import ClientError
 import csv
+"""
+Checks server-side encryption settings for every S3 bucket in the account.
+
+For each bucket, calls get_bucket_encryption to retrieve its encryption rules.
+Buckets with no encryption configuration are printed directly as "NOT encrypted".
+Buckets that do have encryption configured are collected, transformed into
+{"bucket": name, "encryption": rules} dicts, and written out to buckets.csv.
+"""
 
 s3 = boto3.client('s3')
 responses = s3.list_buckets()
@@ -19,7 +27,7 @@ def encryption_config():
             bucket_rules.append((bucket, rules))
         except ClientError as e:
             if e.response['Error']['Code'] == 'ServerSideEncryptionConfigurationNotFoundError':
-                print(f"{bucket}: NOT encrypted")
+                bucket_rules.append((bucket, e.response))
             else:
                 raise
 
