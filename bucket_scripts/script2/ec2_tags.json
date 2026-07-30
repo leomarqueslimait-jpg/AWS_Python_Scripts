@@ -1,0 +1,28 @@
+[
+    [
+        "i-0c930d30398e5ce7a",
+        {
+            "key": "ManagedBy",
+            "value": "Aws_Console"
+        },
+        {
+            "key": "Name",
+            "value": "Instance 2"
+        }
+    ],
+    [
+        "i-0449e02f573a28072",
+        {
+            "key": "ManagedBy",
+            "value": "Aws_Console"
+        },
+        {
+            "key": "Name",
+            "value": "Instance1"
+        }
+    ],
+    [
+        "i-017b4a882924c8e5e",
+        "There are no tags"
+    ]
+]

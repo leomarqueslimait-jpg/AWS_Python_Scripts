@@ -40,9 +40,6 @@ def transform_list():
         dict_bucket.append({"bucket": x, "encryption": y})
 
 transform_list()
-"""
-for bucket in dict_bucket:
-    print(f"bucket: {bucket['bucket']}, encryption: {bucket['Encryption']}")"""
 
 def to_csv():
 
