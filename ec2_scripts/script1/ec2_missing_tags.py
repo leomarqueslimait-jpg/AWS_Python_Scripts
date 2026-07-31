@@ -22,20 +22,26 @@ outter_list = []
 
 def check_tags():
     i = 0  # tracks the index of the current instance's sublist in outter_list
+    # loops through the list of lists until the dict 'Tags' 
     for reservation in response["Reservations"]:
         for instances in reservation['Instances']:
+            #store the instance id in a variable 
             instance_id = instances["InstanceId"]
 
-            # start this instance's entry with just its ID
+            # use the variable instance_id to create a list of dict where tag values of the respective instance will be stored
+            #each instance_id list will be store inside outter_list
             outter_list.append([instance_id])
 
-            try:
+
                 # instances['Tags'] only exists if the instance has tags;
                 # missing key raises KeyError, caught below
+            try:
+                
                 for tags in instances['Tags']:
 
                     key = tags["Key"]
                     value = tags["Value"]
+                    #[i] = each instance_id list. Append dict to each list
                     outter_list[i].append({"key": key, "value": value})
 
             except KeyError as e:
@@ -49,6 +55,7 @@ def to_json():
     # write the collected data out as a JSON file for later review
     with open("ec2_tags.json", "w") as file:
         json.dump(outter_list, file, indent=4, sort_keys=True)
+
 
 to_json()
 
