@@ -4,13 +4,13 @@
 # lambda_am/ (start, morning).
 data "archive_file" "instances_to_stop" {
   type        = "zip"
-  source_file = "${path.module}/../lambda_pm/instances_to_stop.py"
+  source_file = "${path.module}/../handler_pm/instances_to_stop.py"
   output_path = "${path.module}/instances_to_stop.zip"
 }
 
 data "archive_file" "instances_to_start" {
   type        = "zip"
-  source_file = "${path.module}/../lambda_am/instances_to_start.py"
+  source_file = "${path.module}/../handler_am/instances_to_start.py"
   output_path = "${path.module}/instances_to_start.zip"
 }
 
