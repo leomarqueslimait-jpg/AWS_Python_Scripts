@@ -44,3 +44,38 @@ resource "aws_iam_role_policy" "lambda_permissions" {
   role   = aws_iam_role.lambda_exec.id
   policy = data.aws_iam_policy_document.lambda_permissions.json
 }
+
+# EventBridge Scheduler needs its own role to assume when invoking a target -
+# unlike classic EventBridge Rules, it doesn't use a resource-based Lambda
+# permission (aws_lambda_permission); authorization goes through this role.
+data "aws_iam_policy_document" "scheduler_assume" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["scheduler.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "scheduler_invoke" {
+  name               = "ec2-scheduler-invoke-role"
+  assume_role_policy = data.aws_iam_policy_document.scheduler_assume.json
+}
+
+data "aws_iam_policy_document" "scheduler_invoke_lambda" {
+  statement {
+    actions = ["lambda:InvokeFunction"]
+    resources = [
+      aws_lambda_function.instances_to_stop.arn,
+      aws_lambda_function.instances_to_start.arn
+    ]
+  }
+}
+
+resource "aws_iam_role_policy" "scheduler_invoke_lambda" {
+  name   = "ec2-scheduler-invoke-lambda"
+  role   = aws_iam_role.scheduler_invoke.id
+  policy = data.aws_iam_policy_document.scheduler_invoke_lambda.json
+}
