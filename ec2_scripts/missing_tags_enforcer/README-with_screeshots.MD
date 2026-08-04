@@ -35,11 +35,14 @@ The event JSON shows the actual state transition:
 
 ![EventBridge rule monitoring dashboard](./screenshots/eventbridge-invocations.png)
 
+**The SNS side of it — the confirmation email AWS sends right after `apply`, and the subscription showing confirmed once I clicked it:**
+
+![SNS subscription confirmation email](./screenshots/sns-email-confirmation.png)
+![SNS topic subscription showing confirmed status](./screenshots/sns-subscription-confirmed.png)
+
 **And the execution role's permissions — `StopInstances` scoped by the absence of the `Environment` tag, nothing broader:**
 
 ![IAM execution role policy summary](./screenshots/iam-execution-role-policy.png)
-
-*(still to add: the SNS email alert)*
 
 ## Design Decisions
 
