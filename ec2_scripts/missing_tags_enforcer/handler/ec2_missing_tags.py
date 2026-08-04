@@ -3,8 +3,7 @@
 # Results are printed to console and saved to ec2_tags.json.
 
 import boto3
-import json
-from boto3 import stop_instances
+
 
 ec2 = boto3.client('ec2')
    
@@ -45,7 +44,7 @@ def main(event):
     #variables not stale because they are recomputed from scratch everytime main runs
     ids = get_new_instance_ids(event)
     instances_no_tags = check_tags(ids)
-    stop_instances(instances_no_tags)
+    ec2.stop_instances(InstanceIds=instances_no_tags)
     return f"Instances with no tags {instances_no_tags}"
 
 
