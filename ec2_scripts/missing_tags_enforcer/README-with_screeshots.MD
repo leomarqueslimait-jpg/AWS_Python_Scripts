@@ -8,7 +8,7 @@ It's a companion to my earlier [EC2 dev/prod scheduler](../script2/EC2_SCHEDULER
 
 ## Architecture Diagram
 
-*(diagram to add)*
+![Architecture diagram](./screenshots/architecture-diagram.svg)
 
 ## Enforcement in Action
 
@@ -16,28 +16,28 @@ Here's what happened when I launched a test instance with no `Environment` tag f
 
 **The instance launches:**
 
-![Untagged instance launched](./screenshots/01-launch-success.png)
+![Untagged instance launched](./screenshots/launch-success.png)
 
 **Seconds later, the Lambda catches it and stops it:**
 
-![Instance transitioning to stopping](./screenshots/02-instance-stopping.png)
-![Instance fully stopped](./screenshots/03-instance-stopped.png)
+![Instance transitioning to stopping](./screenshots/instance-stopping.png)
+![Instance fully stopped](./screenshots/instance-stopped.png)
 
 **CloudTrail's own record confirms the Lambda made the call, not a person:**
 
-![StopInstances event details in CloudTrail](./screenshots/04-cloudtrail-stopinstances-event.png)
+![StopInstances event details in CloudTrail](./screenshots/cloudtrail-stopinstances-event.png)
 
 The event JSON shows the actual state transition:
 
-![StopInstances event JSON showing running to stopping](./screenshots/06-cloudtrail-stopinstances-json.png)
+![StopInstances event JSON showing running to stopping](./screenshots/cloudtrail-stopinstances-json.png)
 
 **The EventBridge rule's own metrics confirm the trigger chain fired cleanly — matched events, invocations, and triggered rules all in lockstep, zero failed invocations:**
 
-![EventBridge rule monitoring dashboard](./screenshots/07-eventbridge-invocations.png)
+![EventBridge rule monitoring dashboard](./screenshots/eventbridge-invocations.png)
 
 **And the execution role's permissions — `StopInstances` scoped by the absence of the `Environment` tag, nothing broader:**
 
-![IAM execution role policy summary](./screenshots/05-iam-execution-role-policy.png)
+![IAM execution role policy summary](./screenshots/iam-execution-role-policy.png)
 
 *(still to add: the SNS email alert)*
 
