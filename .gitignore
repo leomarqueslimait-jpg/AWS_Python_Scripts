@@ -32,4 +32,4 @@ buckets.csv
 # OS / editor
 .DS_Store
  
-/venv
+/venvec2_scripts/missing_tags_enforcer/infra/aws/
