@@ -25,11 +25,11 @@ Here's what happened when I launched a test instance with no `Environment` tag f
 
 **CloudTrail's own record confirms the Lambda made the call, not a person:**
 
-![StopInstances event details in CloudTrail](./screenshots/cloudtrail-stopinstances-event.png)
+![StopInstances event details in CloudTrail](./screenshots/stopinstances-event.png)
 
 The event JSON shows the actual state transition:
 
-![StopInstances event JSON showing running to stopping](./screenshots/cloudtrail-stopinstances-json.png)
+![StopInstances event JSON showing running to stopping](./screenshots/stopinstances-json.png)
 
 **The EventBridge rule's own metrics confirm the trigger chain fired cleanly — matched events, invocations, and triggered rules all in lockstep, zero failed invocations:**
 
